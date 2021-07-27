@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --poll src/index.ts",
+    "start": "ts-node-dev --files src/index.ts",
     "lint": "eslint 'src/**/*.{ts,js}'",
     "lint:fix": "prettier --write 'src/**/*.{ts,js}' && eslint --fix 'src/**/*.{ts,tsx,js,jsx}'"
   },
