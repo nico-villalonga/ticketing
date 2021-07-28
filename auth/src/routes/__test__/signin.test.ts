@@ -2,7 +2,7 @@ import request from "supertest";
 
 import { app } from "../../app";
 
-describe("signin", () => {
+describe("signin route", () => {
   it("should fails when supplied non existing email", () => {
     return request(app)
       .post("/api/users/signin")

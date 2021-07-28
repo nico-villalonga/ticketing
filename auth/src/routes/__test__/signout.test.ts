@@ -2,8 +2,8 @@ import request from "supertest";
 
 import { app } from "../../app";
 
-describe("signout", () => {
-  it("should clear  coolie after signing out", async () => {
+describe("signout route", () => {
+  it("should clear cookie after signing out", async () => {
     await request(app)
       .post("/api/users/signup")
       .send({
