@@ -14,5 +14,13 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'csr/**/*.ts'
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: nicovillalonga/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
             dest: .
