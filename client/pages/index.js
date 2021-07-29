@@ -1,3 +1,14 @@
-const IndexPage = () => <h1>asdd</h1>;
+import buildClient from "../api/build-client";
 
-export default IndexPage;
+const LandingPage = ({ currentUser }) => {
+  return <h1>You are { !currentUser && "NOT" } signed in</h1>
+};
+
+LandingPage.getInitialProps = async ({ req }) => {
+  const client = buildClient(req);
+  const { data } = await client.get("/api/users/current-user");
+
+  return data;
+}
+
+export default LandingPage;
