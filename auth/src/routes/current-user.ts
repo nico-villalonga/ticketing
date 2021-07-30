@@ -1,6 +1,5 @@
+import { currentUser } from "@tickex/common";
 import { Request, Response, Router } from "express";
-
-import { currentUser } from "../middlewares/current-user";
 
 const router = Router();
 

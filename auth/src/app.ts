@@ -1,10 +1,9 @@
+import { errorHandler, NotFoundError } from "@tickex/common";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
 
-import { NotFoundError } from "./errors/not-found";
-import { errorHandler } from "./middlewares/error-handler";
 import { currentUserRoute } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
 import { signoutRoute } from "./routes/signout";
