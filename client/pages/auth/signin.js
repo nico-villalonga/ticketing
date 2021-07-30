@@ -3,7 +3,7 @@ import Router from "next/router";
 
 import useRequest from "../../hooks/use-request"
 
-const SignupPage = () => {
+const SigninPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
@@ -47,4 +47,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SigninPage;
