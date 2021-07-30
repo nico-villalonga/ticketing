@@ -1,8 +1,10 @@
-import { errorHandler, NotFoundError } from "@tickex/common";
+import { currentUser, errorHandler, NotFoundError } from "@tickex/common";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import express from "express";
+
 import "express-async-errors";
+import { createTicketRoute } from "./routes/create";
 
 const app = express();
 
@@ -14,6 +16,9 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+app.use(currentUser);
+
+app.use(createTicketRoute);
 
 app.all("*", () => {
   throw new NotFoundError();
