@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 export const getAuthCookie = () => {
   const payload = {
-    id: "123",
+    id: generateId(),
     email: "test@test.com",
   };
 
@@ -12,3 +13,5 @@ export const getAuthCookie = () => {
 
   return [`express:sess=${base64}`];
 };
+
+export const generateId = () => mongoose.Types.ObjectId().toHexString();
