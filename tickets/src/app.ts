@@ -4,6 +4,7 @@ import cookieSession from "cookie-session";
 import express from "express";
 
 import "express-async-errors";
+import { indexTicketRoute } from "./routes";
 import { createTicketRoute } from "./routes/create";
 import { showTicketRoute } from "./routes/show";
 
@@ -19,6 +20,7 @@ app.use(
 );
 app.use(currentUser);
 
+app.use(indexTicketRoute);
 app.use(createTicketRoute);
 app.use(showTicketRoute);
 
