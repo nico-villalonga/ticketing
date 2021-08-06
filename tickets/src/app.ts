@@ -7,6 +7,7 @@ import "express-async-errors";
 import { indexTicketRoute } from "./routes";
 import { createTicketRoute } from "./routes/create";
 import { showTicketRoute } from "./routes/show";
+import { updateTicketRoute } from "./routes/update";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(currentUser);
 app.use(indexTicketRoute);
 app.use(createTicketRoute);
 app.use(showTicketRoute);
+app.use(updateTicketRoute);
 
 app.all("*", () => {
   throw new NotFoundError();
