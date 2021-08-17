@@ -1,6 +1,7 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { natsWrapper } from "../../nats-wrapper";
 import { getAuthCookie } from "../../test/helpers/auth";
 import { generateId } from "../../test/helpers/auth";
 
@@ -79,5 +80,20 @@ describe("update route", () => {
 
     expect(ticketResponse.body.title).toEqual(title);
     expect(ticketResponse.body.price).toEqual(price);
+  });
+
+  it("should publish an event", async () => {
+    const title = "updated title";
+    const price = 25;
+    const cookie = getAuthCookie();
+    const response = await createTicket(cookie);
+
+    await request(app)
+      .put(`${TICKETS_ROUTE}/${response.body.id}`)
+      .set("Cookie", cookie)
+      .send({ title, price })
+      .expect(200);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });
