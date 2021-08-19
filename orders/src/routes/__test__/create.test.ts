@@ -36,9 +36,7 @@ describe("create route", () => {
     return request(app)
       .post(ORDERS_ROUTE)
       .set("Cookie", getAuthCookie())
-      .send({
-        ticketId: ticket.id,
-      })
+      .send({ ticketId: ticket.id })
       .expect(400);
   });
 
@@ -55,9 +53,7 @@ describe("create route", () => {
     const response = await request(app)
       .post(ORDERS_ROUTE)
       .set("Cookie", getAuthCookie())
-      .send({
-        ticketId: ticket.id,
-      })
+      .send({ ticketId: ticket.id })
       .expect(201);
 
     orders = await Order.find({});
