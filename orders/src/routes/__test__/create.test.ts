@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Order, OrderStatus } from "../../models/order";
 import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
 import { generateId, getAuthCookie } from "../../test/helpers/auth";
 
 const ORDERS_ROUTE = "/api/orders";
@@ -61,5 +62,21 @@ describe("create route", () => {
     expect(orders.length).toEqual(1);
     expect(response.body.ticket.title).toEqual(title);
     expect(response.body.ticket.price).toEqual(price);
+  });
+
+  it("should emit an order created event", async () => {
+    const title = "concert";
+    const price = 20;
+
+    const ticket = Ticket.build({ title, price });
+    await ticket.save();
+
+    await request(app)
+      .post(ORDERS_ROUTE)
+      .set("Cookie", getAuthCookie())
+      .send({ ticketId: ticket.id })
+      .expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });
