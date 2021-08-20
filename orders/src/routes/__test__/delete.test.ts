@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Order, OrderStatus } from "../../models/order";
 import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
 import { generateId, getAuthCookie } from "../../test/helpers/auth";
 
 const ORDERS_ROUTE = "/api/orders";
@@ -62,5 +63,30 @@ describe("delete route", () => {
     const updatedOrder = await Order.findById(order.id);
 
     expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
+  });
+
+  it("should emit an order cancelled event", async () => {
+    const ticket = Ticket.build({
+      title: "concert",
+      price: 20,
+    });
+
+    await ticket.save();
+
+    const cookie = getAuthCookie();
+
+    const { body: order } = await request(app)
+      .post(ORDERS_ROUTE)
+      .set("Cookie", cookie)
+      .send({ ticketId: ticket.id })
+      .expect(201);
+
+    await request(app)
+      .delete(`${ORDERS_ROUTE}/${order.id}`)
+      .set("Cookie", cookie)
+      .send()
+      .expect(204);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });
 });
