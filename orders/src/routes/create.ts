@@ -8,6 +8,7 @@ import {
 import { Request, Response, Router } from "express";
 import { body } from "express-validator";
 
+import { ORDERS_ROUTE } from "../constants";
 import { OrderCreatedPublisher } from "../events/publisher/order-created";
 import { Order } from "../models/order";
 import { Ticket } from "../models/ticket";
@@ -17,7 +18,7 @@ const EXPIRATION_SECONDS = 15 * 60;
 const router = Router();
 
 router.post(
-  "/api/orders/",
+  ORDERS_ROUTE,
   requireAuth,
   [body("ticketId").not().isEmpty().withMessage("Ticket id must be provided")],
   validateRequest,

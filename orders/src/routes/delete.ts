@@ -6,6 +6,7 @@ import {
 } from "@tickex/common";
 import { Request, Response, Router } from "express";
 
+import { ORDERS_ROUTE } from "../constants";
 import { OrderCancelledPublisher } from "../events/publisher/order-cancelled";
 import { Order } from "../models/order";
 import { natsWrapper } from "../nats-wrapper";
@@ -13,7 +14,7 @@ import { natsWrapper } from "../nats-wrapper";
 const router = Router();
 
 router.delete(
-  "/api/orders/:orderId",
+  `${ORDERS_ROUTE}/:orderId`,
   requireAuth,
   async (req: Request, res: Response) => {
     const order = await Order.findById(req.params.orderId).populate("ticket");

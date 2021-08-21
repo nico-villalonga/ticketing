@@ -1,12 +1,11 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { ORDERS_ROUTE } from "../../constants";
 import { Order, OrderStatus } from "../../models/order";
 import { Ticket } from "../../models/ticket";
 import { natsWrapper } from "../../nats-wrapper";
 import { generateId, getAuthCookie } from "../../test/helpers/auth";
-
-const ORDERS_ROUTE = "/api/orders";
 
 describe("delete route", () => {
   it("should error 404 if order not found", async () => {
@@ -19,6 +18,7 @@ describe("delete route", () => {
 
   it("should error 401 if user not owns the order", async () => {
     const ticket = Ticket.build({
+      id: generateId(),
       title: "concert",
       price: 20,
     });
@@ -40,6 +40,7 @@ describe("delete route", () => {
 
   it("should mark order as cancelled", async () => {
     const ticket = Ticket.build({
+      id: generateId(),
       title: "concert",
       price: 20,
     });
@@ -67,6 +68,7 @@ describe("delete route", () => {
 
   it("should emit an order cancelled event", async () => {
     const ticket = Ticket.build({
+      id: generateId(),
       title: "concert",
       price: 20,
     });

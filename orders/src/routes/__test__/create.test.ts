@@ -1,12 +1,11 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { ORDERS_ROUTE } from "../../constants";
 import { Order, OrderStatus } from "../../models/order";
 import { Ticket } from "../../models/ticket";
 import { natsWrapper } from "../../nats-wrapper";
 import { generateId, getAuthCookie } from "../../test/helpers/auth";
-
-const ORDERS_ROUTE = "/api/orders";
 
 describe("create route", () => {
   it("should return an error if the ticket does not exist", () => {
@@ -21,6 +20,7 @@ describe("create route", () => {
 
   it("should return an error if the ticket is already reserved", async () => {
     const ticket = Ticket.build({
+      id: generateId(),
       title: "concert",
       price: 20,
     });
@@ -48,7 +48,7 @@ describe("create route", () => {
 
     expect(orders.length).toEqual(0);
 
-    const ticket = Ticket.build({ title, price });
+    const ticket = Ticket.build({ id: generateId(), title, price });
     await ticket.save();
 
     const response = await request(app)
@@ -68,7 +68,7 @@ describe("create route", () => {
     const title = "concert";
     const price = 20;
 
-    const ticket = Ticket.build({ title, price });
+    const ticket = Ticket.build({ id: generateId(), title, price });
     await ticket.save();
 
     await request(app)

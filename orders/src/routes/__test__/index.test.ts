@@ -1,13 +1,13 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { ORDERS_ROUTE } from "../../constants";
 import { Ticket } from "../../models/ticket";
-import { getAuthCookie } from "../../test/helpers/auth";
-
-const ORDERS_ROUTE = "/api/orders";
+import { generateId, getAuthCookie } from "../../test/helpers/auth";
 
 const buildTicket = async () => {
   const ticket = Ticket.build({
+    id: generateId(),
     title: "concert",
     price: 20,
   });
