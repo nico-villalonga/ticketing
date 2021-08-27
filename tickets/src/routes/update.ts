@@ -1,4 +1,5 @@
 import {
+  BadRequestError,
   NotFoundError,
   requireAuth,
   Unauthorized,
@@ -28,6 +29,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("Cannot edit reserved ticket");
     }
 
     if (ticket.userId !== req.currentUser.id) {

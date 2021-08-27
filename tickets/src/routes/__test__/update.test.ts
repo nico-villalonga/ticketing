@@ -2,6 +2,7 @@ import request from "supertest";
 
 import { app } from "../../app";
 import { TICKETS_ROUTE } from "../../constants";
+import { Ticket } from "../../models/ticket";
 import { natsWrapper } from "../../nats-wrapper";
 import { getAuthCookie } from "../../test/helpers/auth";
 import { generateId } from "../../test/helpers/auth";
@@ -20,6 +21,24 @@ describe("update route", () => {
       .set("Cookie", getAuthCookie())
       .send({ title: "some title", price: 20 })
       .expect(404);
+  });
+
+  it("should return 400 if ticket is reserved", async () => {
+    const cookie = getAuthCookie();
+    const response = await createTicket(cookie);
+    const ticket = await Ticket.findById(response.body.id);
+
+    ticket?.set({ orderId: generateId() });
+    await ticket?.save();
+
+    await request(app)
+      .put(`${TICKETS_ROUTE}/${response.body.id}`)
+      .set("Cookie", cookie)
+      .send({
+        title: "updated title",
+        price: 25,
+      })
+      .expect(400);
   });
 
   it("should return 401 if user is not authenticated", async () => {
