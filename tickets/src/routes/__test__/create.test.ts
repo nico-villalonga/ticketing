@@ -1,11 +1,10 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { TICKETS_ROUTE } from "../../constants";
 import { Ticket } from "../../models/ticket";
 import { natsWrapper } from "../../nats-wrapper";
 import { getAuthCookie } from "../../test/helpers/auth";
-
-const TICKETS_ROUTE = "/api/tickets";
 
 describe("create route", () => {
   it("should have rotue handler listening for post /api/tickets", async () => {

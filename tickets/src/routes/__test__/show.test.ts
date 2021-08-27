@@ -1,10 +1,9 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { TICKETS_ROUTE } from "../../constants";
 import { getAuthCookie } from "../../test/helpers/auth";
 import { generateId } from "../../test/helpers/auth";
-
-const TICKETS_ROUTE = "/api/tickets";
 
 describe("show route", () => {
   it("should return 404 if ticket is not found", async () => {

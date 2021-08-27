@@ -1,11 +1,10 @@
 import request from "supertest";
 
 import { app } from "../../app";
+import { TICKETS_ROUTE } from "../../constants";
 import { natsWrapper } from "../../nats-wrapper";
 import { getAuthCookie } from "../../test/helpers/auth";
 import { generateId } from "../../test/helpers/auth";
-
-const TICKETS_ROUTE = "/api/tickets";
 
 const createTicket = (cookie?: string[]) => {
   return request(app)
