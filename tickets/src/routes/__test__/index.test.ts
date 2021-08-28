@@ -1,7 +1,7 @@
 import request from "supertest";
 
-import { app } from "../../app";
 import { TICKETS_ROUTE } from "../../constants";
+import { app } from "../../loaders/app";
 import { getAuthCookie } from "../../test/helpers/auth";
 
 const createTicket = () => {
