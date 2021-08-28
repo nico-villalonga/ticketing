@@ -4,10 +4,10 @@ import cookieSession from "cookie-session";
 import express from "express";
 
 import "express-async-errors";
-import { createOrderRoute } from "./routes/create";
-import { deleteOrderRoute } from "./routes/delete";
-import { indexOrderRoute } from "./routes/index";
-import { showOrderRoute } from "./routes/show";
+import { createOrderRoute } from "../routes/create";
+import { deleteOrderRoute } from "../routes/delete";
+import { indexOrderRoute } from "../routes/index";
+import { showOrderRoute } from "../routes/show";
 
 const app = express();
 

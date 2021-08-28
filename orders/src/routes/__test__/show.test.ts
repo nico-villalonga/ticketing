@@ -1,7 +1,7 @@
 import request from "supertest";
 
-import { app } from "../../app";
 import { ORDERS_ROUTE } from "../../constants";
+import { app } from "../../loaders/app";
 import { Ticket } from "../../models/ticket";
 import { generateId, getAuthCookie } from "../../test/helpers/auth";
 
