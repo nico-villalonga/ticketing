@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { app } from "../../app";
+import { app } from "../../loaders/app";
 
 describe("signin route", () => {
   it("should fails when supplied non existing email", () => {

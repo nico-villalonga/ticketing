@@ -4,10 +4,10 @@ import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
 
-import { currentUserRoute } from "./routes/current-user";
-import { signinRouter } from "./routes/signin";
-import { signoutRoute } from "./routes/signout";
-import { signupRoute } from "./routes/signup";
+import { currentUserRoute } from "../routes/current-user";
+import { signinRouter } from "../routes/signin";
+import { signoutRoute } from "../routes/signout";
+import { signupRoute } from "../routes/signup";
 
 const app = express();
 

@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { app } from "../../app";
+import { app } from "../../loaders/app";
 export const getAuthCookie = async () => {
   const email = "test@test.com";
   const password = "password";

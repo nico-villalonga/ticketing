@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { app } from "../../app";
+import { app } from "../../loaders/app";
 
 describe("signup route", () => {
   it("should return 201 on successful signup", async () => {

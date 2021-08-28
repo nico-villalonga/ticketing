@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { app } from "../../app";
+import { app } from "../../loaders/app";
 
 describe("signout route", () => {
   it("should clear cookie after signing out", async () => {
